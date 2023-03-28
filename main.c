@@ -1,20 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "list_answer.c"
 
-typedef struct Node Node;
 
-struct Node 
+int main()
 {
-    void *data;
-    Node *next;
-    Node *prev;
-};
-
-struct List 
-{
-    Node *head;
-    Node *tail;
-    Node *current;
-};
-
-typedef List List;
+    
+}
