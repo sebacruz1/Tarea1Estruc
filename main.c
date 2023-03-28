@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "list_answer.c"
-
 
 typedef struct
 {
@@ -48,7 +48,7 @@ void mostrarPaciente(List* lista, Datos* paciente)
     
     while (aux != NULL)
     {
-        if (aux->nombre == nombre && aux->apellido == apellido)
+        if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
         {
             printf("Nombre: %s\n", aux->nombre);
             printf("Apellido: %s\n", aux->apellido);
@@ -57,10 +57,17 @@ void mostrarPaciente(List* lista, Datos* paciente)
             printf("Direccion: %s\n", aux->direccion);
             printf("Numero de seguro social: %s\n", aux->numeroSocial);
             printf("Medico asignado: %s\n", aux->listaMedicos);
+            break;
+        }
+
+        else if (aux != lista->tail)
+        {
+            aux = nextList(lista);
         }
         else
         {
-            aux = nextList(lista);
+            printf("No se encontro el paciente\n");
+            break;
         }
     }
 
@@ -90,6 +97,10 @@ int main()
 
         switch(opcion)
         {
+            case 0:
+            {
+                exit(0);
+            }
             case 1:
             {
                 registrarPaciente(lista);
