@@ -51,6 +51,7 @@ void mostrarPaciente(List* lista, Datos* paciente)
     
     while (aux != NULL)
     {
+        encontrado = false;
         if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
         {
             encontrado = true;
@@ -61,7 +62,7 @@ void mostrarPaciente(List* lista, Datos* paciente)
             printf("Direccion: %s\n", aux->direccion);
             printf("Numero de seguro social: %s\n", aux->numeroSocial);
             printf("Medico asignado: %s\n", aux->listaMedicos);
-            sleep(3);
+            sleep(1);
             break;
         }
 
@@ -70,13 +71,16 @@ void mostrarPaciente(List* lista, Datos* paciente)
             aux = nextList(lista);
         }
         
-        if (!encontrado)
-        {
-            printf("No se encontro el paciente\n");
-            sleep(3);
-            break;
-        }
+        
+        
     }
+
+    if (!encontrado)
+    {
+        printf("No se encontro el paciente\n");
+        sleep(1);
+    }
+
 
 }
 
@@ -99,7 +103,7 @@ void eliminarPaciente(List *lista, Datos *paciente)
             eliminado = true;
             popCurrent(lista);
             printf("Paciente eliminado\n");
-            sleep(3);
+            sleep(1);
             break;
         }
 
@@ -107,13 +111,12 @@ void eliminarPaciente(List *lista, Datos *paciente)
         {
             aux = nextList(lista);
         }
+    }
 
-        if (!eliminado)
-        {
-            printf("No se encontro el paciente\n");
-            sleep(3);
-            break;
-        }
+    if (!eliminado)
+    {
+        printf("No se encontro el paciente\n");
+        sleep(1);
     }
 }
 
@@ -164,7 +167,4 @@ int main()
             }
         }
     }
-
-
-
 }
