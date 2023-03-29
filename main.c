@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include <stdbool.h>
 #include "list_answer.c"
 
 typedef struct
@@ -45,11 +47,13 @@ void mostrarPaciente(List* lista, Datos* paciente)
     scanf("%s", apellido);
 
     Datos* aux = firstList(lista);
+    bool encontrado = false;
     
     while (aux != NULL)
     {
         if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
         {
+            encontrado = true;
             printf("Nombre: %s\n", aux->nombre);
             printf("Apellido: %s\n", aux->apellido);
             printf("Edad: %d\n", aux->edad);
@@ -57,6 +61,7 @@ void mostrarPaciente(List* lista, Datos* paciente)
             printf("Direccion: %s\n", aux->direccion);
             printf("Numero de seguro social: %s\n", aux->numeroSocial);
             printf("Medico asignado: %s\n", aux->listaMedicos);
+            sleep(3);
             break;
         }
 
@@ -64,9 +69,11 @@ void mostrarPaciente(List* lista, Datos* paciente)
         {
             aux = nextList(lista);
         }
-        else
+        
+        if (!encontrado)
         {
             printf("No se encontro el paciente\n");
+            sleep(3);
             break;
         }
     }
@@ -75,7 +82,39 @@ void mostrarPaciente(List* lista, Datos* paciente)
 
 void eliminarPaciente(List *lista, Datos *paciente)
 {
+    char nombre[30];
+    char apellido[30];
+    printf("Ingrese el nombre del paciente: ");
+    scanf("%s", nombre);
+    printf("Ingrese el apellido del paciente: ");
+    scanf("%s", apellido);
 
+    Datos* aux = firstList(lista);
+    bool eliminado = false;
+    
+    while (aux != NULL)
+    {
+        if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
+        {
+            eliminado = true;
+            popCurrent(lista);
+            printf("Paciente eliminado\n");
+            sleep(3);
+            break;
+        }
+
+        else if (aux != lista->tail)
+        {
+            aux = nextList(lista);
+        }
+
+        if (!eliminado)
+        {
+            printf("No se encontro el paciente\n");
+            sleep(3);
+            break;
+        }
+    }
 }
 
 int main()
@@ -86,11 +125,12 @@ int main()
     int opcion = 1;
 
     while (opcion != 0)
-    {
+    {  
+        opcion = 0;
         printf("Que desea hacer?\n");
         printf("1. Registrar un paciente\n");
         printf("2. Mostrar datos de un paciente\n");
-        printf("3. Eliminar paciente");
+        printf("3. Eliminar paciente\n");
         printf("4. Mostrar todos los pacientes\n");
         printf("5. Mostrar todos los pacientes sin un medico asignado\n");
         printf("6. Asignar medico a paciente\n");
