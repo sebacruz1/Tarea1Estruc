@@ -120,6 +120,7 @@ void eliminarPaciente(List *lista)
     }
 }
 
+
 void mostrarTodosPacientes(List *lista)
 {
     Datos* aux = firstList(lista);
@@ -259,6 +260,55 @@ void desasignarMedico(List *lista)
     }
 }
 
+void importarPacientes(List *lista)
+{
+    char nombreArchivo[30];
+    //printf("Ingrese el nombre del archivo .csv: ");
+    //scanf("%s", nombreArchivo);
+    FILE *fp = fopen("prueba.csv", "r");
+    
+    char linea[1024];
+
+    while (fgets(linea, 1023, fp) != NULL)
+    {
+        for (int i = 0; i < 9; i++) 
+        {
+        char *aux = get_csv_field(linea, i);
+        switch (i) 
+        {
+            case 0:
+                printf("Nombre: %s\n", aux);
+                break;
+            case 1:
+                printf("Apellido: %s\n", aux);
+                break;
+            case 2:
+                printf("Edad: %s\n", aux);
+                break;
+            case 3:
+                printf("Telefono: %s\n", aux);
+                break;
+            case 4:
+                printf("Direccion: %s\n", aux);
+                break;
+            case 5:
+                printf("Numero de seguro social: %s\n", aux);
+                break;
+            case 6:
+                printf("Medico asignado: %s\n", aux);
+                break;
+            default:
+                break;
+        }
+        free(aux);
+        }
+        printf("\n");
+        sleep(1);
+
+    }
+
+}
+
 
 int main()
 {
@@ -325,10 +375,17 @@ int main()
                 desasignarMedico(lista);
                 break;
             }
-           /* case 8:
+            case 8:
             {
+                importarPacientes(lista);
+                break;
+            }
+            case 9:
+            {
+                
+                break;
+            }
 
-            }*/
         }
     }
 }
