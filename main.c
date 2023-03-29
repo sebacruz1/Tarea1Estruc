@@ -186,6 +186,70 @@ void asignarMedico(List *lista)
     }
 }
 
+void pacientesSinMedicos(List *lista)
+{
+    Datos* aux = firstList(lista);
+    while (aux != NULL)
+    {
+        if (strcmp(aux->listaMedicos, "") == 0)
+        {
+            printf("Nombre: %s\n", aux->nombre);
+            printf("Apellido: %s\n", aux->apellido);
+            printf("Edad: %d\n", aux->edad);
+            printf("Telefono: %d\n", aux->telefono);
+            printf("Direccion: %s\n", aux->direccion);
+            printf("Numero de seguro social: %s\n", aux->numeroSocial);
+            printf("Medico asignado: %s\n", aux->listaMedicos);
+            printf("\n");
+            sleep(1);
+        }
+        if (aux != lista->tail)
+        {
+            aux = nextList(lista);
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+
+void desasignarMedico(List *lista)
+{
+    char nombre[30];
+    char apellido[30];
+    printf("Ingrese el nombre del paciente: ");
+    scanf("%s", nombre);
+    printf("Ingrese el apellido del paciente: ");
+    scanf("%s", apellido);
+
+    Datos* aux = firstList(lista);
+    bool encontrado = false;
+    
+    while (aux != NULL)
+    {
+        encontrado = false;
+        if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
+        {
+            encontrado = true;
+            strcpy(aux->listaMedicos, "");
+            printf("Medico desasignado\n");
+            sleep(1);
+            break;
+        }
+
+        else if (aux != lista->tail)
+        {
+            aux = nextList(lista);
+        }
+    }
+
+    if (!encontrado)
+    {
+        printf("No se encontro el paciente\n");
+        sleep(1);
+    }
+}
 
 
 int main()
@@ -240,7 +304,16 @@ int main()
             }
             case 5: 
             {
+                pacientesSinMedico(lista);
+            }
+            case 6: 
+            {
                 asignarMedico(lista);
+                break;
+            }
+            case 7: 
+            {
+                desasignarMedico(lista);
                 break;
             }
         }
