@@ -188,11 +188,13 @@ void asignarMedico(List *lista)
 
 void pacientesSinMedicos(List *lista)
 {
+    bool hay = false;
     Datos* aux = firstList(lista);
     while (aux != NULL)
     {
         if (strcmp(aux->listaMedicos, "") == 0)
         {
+            hay = true;
             printf("Nombre: %s\n", aux->nombre);
             printf("Apellido: %s\n", aux->apellido);
             printf("Edad: %d\n", aux->edad);
@@ -212,6 +214,12 @@ void pacientesSinMedicos(List *lista)
             break;
         }
     }
+    if (!hay)
+    {
+        printf("No hay pacientes sin medico asignado\n");
+        sleep(1);
+    }
+
 }
 
 void desasignarMedico(List *lista)
@@ -270,8 +278,8 @@ int main()
         printf("5. Mostrar todos los pacientes sin un medico asignado\n");
         printf("6. Asignar medico a paciente\n");
         printf("7. Desasignar medico de paciente\n");
-        printf("9. Importar pacientes desde un archivo CSV\n");
-        printf("10. Exportar pacientes a un archivo CSV\n");
+        printf("8. Importar pacientes desde un archivo CSV\n");
+        printf("9. Exportar pacientes a un archivo CSV\n");
         printf("0. Salir\n");
         scanf("%d", &opcion);
 
@@ -304,7 +312,8 @@ int main()
             }
             case 5: 
             {
-                pacientesSinMedico(lista);
+                pacientesSinMedicos(lista);
+                break;
             }
             case 6: 
             {
@@ -316,6 +325,10 @@ int main()
                 desasignarMedico(lista);
                 break;
             }
+           /* case 8:
+            {
+
+            }*/
         }
     }
 }
