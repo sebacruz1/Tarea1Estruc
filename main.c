@@ -263,9 +263,10 @@ void desasignarMedico(List *lista)
 void importarPacientes(List *lista)
 {
     char nombreArchivo[30];
-    //printf("Ingrese el nombre del archivo .csv: ");
-    //scanf("%s", nombreArchivo);
-    FILE *fp = fopen("prueba.csv", "r");
+    printf("Ingrese el nombre del archivo .csv: ");
+    scanf("%s", nombreArchivo);
+    strcat(nombreArchivo, ".csv");
+    FILE *fp = fopen(nombreArchivo, "r");
     
     char linea[1024];
 
