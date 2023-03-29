@@ -32,12 +32,12 @@ void registrarPaciente(List* lista)
     printf("Ingrese el numero de seguro social del paciente: ");
     scanf("%s", paciente->numeroSocial);
     printf("Ingrese el nombre del medico asignado al paciente: ");
-    scanf("%s", paciente->listaMedicos);
+    scanf("%*c%[^\n]", paciente->listaMedicos);
 
     pushBack(lista, paciente);
 }
 
-void mostrarPaciente(List* lista, Datos* paciente)
+void mostrarPaciente(List* lista)
 {
     char nombre[30];
     char apellido[30];
@@ -84,7 +84,7 @@ void mostrarPaciente(List* lista, Datos* paciente)
 
 }
 
-void eliminarPaciente(List *lista, Datos *paciente)
+void eliminarPaciente(List *lista)
 {
     char nombre[30];
     char apellido[30];
@@ -119,6 +119,74 @@ void eliminarPaciente(List *lista, Datos *paciente)
         sleep(1);
     }
 }
+
+void mostrarTodosPacientes(List *lista)
+{
+    Datos* aux = firstList(lista);
+    while (aux != NULL)
+    {
+        printf("Nombre: %s\n", aux->nombre);
+        printf("Apellido: %s\n", aux->apellido);
+        printf("Edad: %d\n", aux->edad);
+        printf("Telefono: %d\n", aux->telefono);
+        printf("Direccion: %s\n", aux->direccion);
+        printf("Numero de seguro social: %s\n", aux->numeroSocial);
+        printf("Medico asignado: %s\n", aux->listaMedicos);
+        printf("\n");
+        sleep(1);
+        if (aux != lista->tail)
+        {
+            aux = nextList(lista);
+        }
+        else
+        {
+            break;
+        }
+    }
+}
+
+void asignarMedico(List *lista)
+{
+    char nombre[30];
+    char apellido[30];
+    printf("Ingrese el nombre del paciente: ");
+    scanf("%s", nombre);
+    printf("Ingrese el apellido del paciente: ");
+    scanf("%s", apellido);
+
+    Datos* aux = firstList(lista);
+    bool encontrado = false;
+    
+    while (aux != NULL)
+    {
+        encontrado = false;
+        if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
+        {
+            encontrado = true;
+            printf("Ingrese el nombre del medico: ");
+            scanf("%*c%[^\n]", aux->listaMedicos);
+            printf("Medico asignado\n");
+            sleep(1);
+            break;
+        }
+
+        else if (aux != lista->tail)
+        {
+            aux = nextList(lista);
+        }
+        
+        
+        
+    }
+
+    if (!encontrado)
+    {
+        printf("No se encontro el paciente\n");
+        sleep(1);
+    }
+}
+
+
 
 int main()
 {
@@ -157,12 +225,22 @@ int main()
             }
             case 2:
             {
-                mostrarPaciente(lista, p);
+                mostrarPaciente(lista);
                 break;
             }
             case 3:
             {
-                eliminarPaciente(lista, p);
+                eliminarPaciente(lista);
+                break;
+            }
+            case 4: 
+            {
+                mostrarTodosPacientes(lista);
+                break;
+            }
+            case 5: 
+            {
+                asignarMedico(lista);
                 break;
             }
         }
