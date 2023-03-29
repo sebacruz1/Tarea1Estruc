@@ -26,7 +26,7 @@ void registrarPaciente(List* lista)
     printf("Ingrese el telefono del paciente: ");
     scanf("%d", &paciente->telefono);
     printf("Ingrese la direccion del paciente: ");
-    scanf("%s", paciente->direccion);
+    scanf("%*c%[^\n]", paciente->direccion);
     printf("Ingrese el numero de seguro social del paciente: ");
     scanf("%s", paciente->numeroSocial);
     printf("Ingrese el nombre del medico asignado al paciente: ");
@@ -73,6 +73,11 @@ void mostrarPaciente(List* lista, Datos* paciente)
 
 }
 
+void eliminarPaciente(List *lista, Datos *paciente)
+{
+
+}
+
 int main()
 {
     List* lista = createList();
@@ -99,6 +104,7 @@ int main()
         {
             case 0:
             {
+                printf("Saliendo...\n");
                 exit(0);
             }
             case 1:
@@ -109,6 +115,11 @@ int main()
             case 2:
             {
                 mostrarPaciente(lista, p);
+                break;
+            }
+            case 3:
+            {
+                eliminarPaciente(lista, p);
                 break;
             }
         }
