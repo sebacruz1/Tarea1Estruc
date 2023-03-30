@@ -307,6 +307,7 @@ void importarPacientes(List *lista)
         sleep(1);
 
     }
+    fclose(fp);
 
 }
 
@@ -314,7 +315,7 @@ void importarPacientes(List *lista)
 int main()
 {
     List* lista = createList();
-    Datos *p = (Datos*)malloc(sizeof(Datos));
+    //Datos *p = (Datos*)malloc(sizeof(Datos));
 
     int opcion = 1;
 
@@ -383,10 +384,12 @@ int main()
             }
             case 9:
             {
-                
+                exportarPacientes(lista);
                 break;
             }
 
         }
     }
+    free(lista);
+
 }
