@@ -311,11 +311,32 @@ void importarPacientes(List *lista)
 
 }
 
+void exportarPacientes(List *lista)
+{
+    char nombreArchivo[30];
+    printf("Ingrese el nombre del archivo .csv: ");
+    scanf("%s", nombreArchivo);
+    strcat(nombreArchivo, ".csv");
+    FILE *fp = fopen(nombreArchivo, "w");
+    Datos* aux = firstList(lista);
+    while (aux != NULL)
+    {
+        fprintf(fp, "%s,%s,%d,%d,%s,%s,%s\n", aux->nombre, aux->apellido, aux->edad, aux->telefono, aux->direccion, aux->numeroSocial, aux->listaMedicos);
+        if (aux != lista->tail)
+        {
+            aux = nextList(lista);
+        }
+        else
+        {
+            break;
+        }
+    }
+    fclose(fp);
+}
 
 int main()
 {
     List* lista = createList();
-    //Datos *p = (Datos*)malloc(sizeof(Datos));
 
     int opcion = 1;
 
@@ -387,9 +408,17 @@ int main()
                 exportarPacientes(lista);
                 break;
             }
+            default:
+            {
+                printf("Opcion invalida\n");
+                sleep(1);
+                break;
+            }
 
         }
     }
     free(lista);
 
+
+    return EXIT_SUCCESS;
 }
