@@ -13,7 +13,7 @@ typedef struct
     int telefono;
     char direccion[30];
     char numeroSocial[30];
-    char listaMedicos[30];
+    char* listaMedicos;
 }Datos;
 
 void registrarPaciente(List* lista)
@@ -32,7 +32,22 @@ void registrarPaciente(List* lista)
     printf("Ingrese el numero de seguro social del paciente: ");
     scanf("%s", paciente->numeroSocial);
     printf("Ingrese el nombre del medico asignado al paciente: ");
-    scanf("%*c%[^\n]", paciente->listaMedicos);
+
+    paciente->listaMedicos = (char*)malloc(30*sizeof(char));
+
+    char medico[30];
+
+    do
+    {
+        medico[0] = '\0';
+        scanf("%*c%[^\n]", medico);
+        if (medico[0] != '\0')
+        {
+            strcat(paciente->listaMedicos, medico);
+            strcat(paciente->listaMedicos, ", ");
+        }
+        
+    } while (medico[0] != '\0');
 
     pushBack(lista, paciente);
 }
@@ -417,8 +432,7 @@ int main()
 
         }
     }
+
     free(lista);
-
-
     return EXIT_SUCCESS;
 }
