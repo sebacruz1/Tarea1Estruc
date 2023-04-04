@@ -14,6 +14,7 @@ typedef struct
     char direccion[30];
     char numeroSocial[30];
     List* listaMedicos;
+    int contMedicos;
 }Datos;
 
 void registrarPaciente(List* lista)
@@ -42,7 +43,7 @@ void registrarPaciente(List* lista)
     paciente->listaMedicos = createList();
 
     char medico[30];
-    int contMedicos = 1;
+    paciente->contMedicos = 0;
 
     do
     {
@@ -50,14 +51,14 @@ void registrarPaciente(List* lista)
         scanf("%*c%[^\n]", medico);
         if (medico[0] != '\0')
         {
-            if (contMedicos == 1) {
+            if (paciente->contMedicos == 1) {
                 pushFront(paciente->listaMedicos, medico);
             }
             else
             {
                 pushBack(paciente->listaMedicos, medico);
             }
-            contMedicos++;
+            paciente->contMedicos++;
 
             //strcat(paciente->listaMedicos, medico);
             //strcat(paciente->listaMedicos, ", ");
@@ -92,7 +93,15 @@ void mostrarPaciente(List* lista)
             printf("Telefono: %d\n", aux->telefono);
             printf("Direccion: %s\n", aux->direccion);
             printf("Numero de seguro social: %s\n", aux->numeroSocial);
-            printf("Medico asignado: %s\n", aux->listaMedicos);
+
+            Node* auxMedico = aux->listaMedicos->head;
+
+            for(int i = 0 ; i <= aux->contMedicos ; i++)
+            {
+                printf("Medico(s) asignado(s): %s\n", auxMedico->data;
+                auxMedico = aux->listaMedicos->next;
+            }
+
             sleep(1);
             break;
         }
@@ -102,8 +111,6 @@ void mostrarPaciente(List* lista)
             aux = nextList(lista);
         }
         
-        
-        
     }
 
     if (!encontrado)
@@ -111,7 +118,6 @@ void mostrarPaciente(List* lista)
         printf("No se encontro el paciente\n");
         sleep(1);
     }
-
 
 }
 
@@ -157,13 +163,13 @@ void mostrarTodosPacientes(List *lista)
     Datos* aux = firstList(lista);
     while (aux != NULL)
     {
-        printf("Nombre: %s\n", aux->nombre);
+        printf("Nombre: %s ", aux->nombre);
         printf("Apellido: %s\n", aux->apellido);
-        printf("Edad: %d\n", aux->edad);
+        /*printf("Edad: %d\n", aux->edad);
         printf("Telefono: %d\n", aux->telefono);
         printf("Direccion: %s\n", aux->direccion);
         printf("Numero de seguro social: %s\n", aux->numeroSocial);
-        printf("Medico asignado: %s\n", aux->listaMedicos);
+        printf("Medico asignado: %s\n", aux->listaMedicos); */
         printf("\n");
         sleep(1);
         if (aux != lista->tail)
@@ -186,28 +192,30 @@ void asignarMedico(List *lista)
     printf("Ingrese el apellido del paciente: ");
     scanf("%s", apellido);
 
-    Datos* aux = firstList(lista);
+    //Datos* aux = firstList(lista);
     bool encontrado = false;
+    char medico[30];
+
+    lista->current = firstList(lista);
     
-    while (aux != NULL)
+    while (lista->current->next != NULL)
     {
         encontrado = false;
-        if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
+        if (strcmp(lista->current->data->nombre, nombre) == 0 && strcmp(lista->current->data->apellido, apellido) == 0)
         {
             encontrado = true;
             printf("Ingrese el nombre del medico: ");
-            scanf("%*c%[^\n]", aux->listaMedicos);
+            scanf("%*c%[^\n]", medico);
             printf("Medico asignado\n");
+            pushBack(lista->current->data->listaMedicos, medico);
             sleep(1);
             break;
         }
 
-        else if (aux != lista->tail)
+        else if (list->current != lista->tail)
         {
-            aux = nextList(lista);
+            lista->current = nextList(lista);
         }
-        
-        
         
     }
 
@@ -224,16 +232,16 @@ void pacientesSinMedicos(List *lista)
     Datos* aux = firstList(lista);
     while (aux != NULL)
     {
-        if (strcmp(aux->listaMedicos, "") == 0)
+        if (strcmp(aux->listaMedicos->head, "") == 0)
         {
             hay = true;
-            printf("Nombre: %s\n", aux->nombre);
+            printf("Nombre: %s ", aux->nombre);
             printf("Apellido: %s\n", aux->apellido);
-            printf("Edad: %d\n", aux->edad);
+            /*printf("Edad: %d\n", aux->edad);
             printf("Telefono: %d\n", aux->telefono);
             printf("Direccion: %s\n", aux->direccion);
             printf("Numero de seguro social: %s\n", aux->numeroSocial);
-            printf("Medico asignado: %s\n", aux->listaMedicos);
+            printf("Medico asignado: %s\n", aux->listaMedicos); */
             printf("\n");
             sleep(1);
         }
@@ -272,7 +280,8 @@ void desasignarMedico(List *lista)
         if (strcmp(aux->nombre, nombre) == 0 && strcmp(aux->apellido, apellido) == 0)
         {
             encontrado = true;
-            strcpy(aux->listaMedicos, "");
+
+            //strcpy(aux->listaMedicos, "");
             printf("Medico desasignado\n");
             sleep(1);
             break;
