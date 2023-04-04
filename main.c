@@ -13,17 +13,17 @@ typedef struct
     int telefono;
     char direccion[30];
     char numeroSocial[30];
-    char* listaMedicos;
+    List* listaMedicos;
 }Datos;
 
 void registrarPaciente(List* lista)
 {
-    Datos* paciente = (Datos*)malloc(sizeof(Datos));
-    printf("Ingrese el nombre del paciente: ");
+    Datos* paciente = (Datos*) malloc(sizeof(Datos));
+    printf("Ingrese el nombre del paciente: \n");
     scanf("%s", paciente->nombre);
-    printf("Ingrese el apellido del paciente: ");
+    printf("Ingrese el apellido del paciente: \n");
     scanf("%s", paciente->apellido);
-    printf("Ingrese la edad del paciente: ");
+    printf("Ingrese la edad del paciente: \n");
     scanf("%d", &paciente->edad);
 
     while(paciente->edad <= 0) {
@@ -31,17 +31,18 @@ void registrarPaciente(List* lista)
         scanf("%d", &paciente->edad);
     }
 
-    printf("Ingrese el telefono del paciente: ");
+    printf("Ingrese el telefono del paciente: \n");
     scanf("%d", &paciente->telefono);
-    printf("Ingrese la direccion del paciente: ");
+    printf("Ingrese la direccion del paciente: \n");
     scanf("%*c%[^\n]", paciente->direccion);
-    printf("Ingrese el numero de seguro social del paciente: ");
+    printf("Ingrese el numero de seguro social del paciente: \n");
     scanf("%s", paciente->numeroSocial);
-    printf("Ingrese el nombre del medico asignado al paciente: ");
+    printf("Ingrese el nombre del medico asignado al paciente: \n");
 
-    paciente->listaMedicos = (char*) malloc(30*sizeof(char));
+    paciente->listaMedicos = createList();
 
     char medico[30];
+    int contMedicos = 1;
 
     do
     {
@@ -49,8 +50,17 @@ void registrarPaciente(List* lista)
         scanf("%*c%[^\n]", medico);
         if (medico[0] != '\0')
         {
-            strcat(paciente->listaMedicos, medico);
-            strcat(paciente->listaMedicos, ", ");
+            if (contMedicos == 1) {
+                pushFront(paciente->listaMedicos, medico);
+            }
+            else
+            {
+                pushBack(paciente->listaMedicos, medico);
+            }
+            contMedicos++;
+
+            //strcat(paciente->listaMedicos, medico);
+            //strcat(paciente->listaMedicos, ", ");
         }
         
     } while (medico[0] != '\0');
