@@ -95,10 +95,10 @@ void mostrarPaciente(List* lista)
             printf("Numero de seguro social: %s\n", aux->numeroSocial);
 
             Node* auxMedico = aux->listaMedicos->head;
-
-            for(int i = 0 ; i <= aux->contMedicos ; i++)
+            int i;
+            for( i = 0 ; i <= aux->contMedicos ; i++)
             {
-                printf("Medico(s) asignado(s): %s\n", auxMedico->data;
+                printf("Medico(s) asignado(s): %s\n", auxMedico->data);
                 auxMedico = aux->listaMedicos->next;
             }
 
