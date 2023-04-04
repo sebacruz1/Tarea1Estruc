@@ -25,6 +25,12 @@ void registrarPaciente(List* lista)
     scanf("%s", paciente->apellido);
     printf("Ingrese la edad del paciente: ");
     scanf("%d", &paciente->edad);
+
+    while(paciente->edad <= 0) {
+        printf("Ingrese una edad valida: \n");
+        scanf("%d", &paciente->edad);
+    }
+
     printf("Ingrese el telefono del paciente: ");
     scanf("%d", &paciente->telefono);
     printf("Ingrese la direccion del paciente: ");
@@ -33,7 +39,7 @@ void registrarPaciente(List* lista)
     scanf("%s", paciente->numeroSocial);
     printf("Ingrese el nombre del medico asignado al paciente: ");
 
-    paciente->listaMedicos = (char*)malloc(30*sizeof(char));
+    paciente->listaMedicos = (char*) malloc(30*sizeof(char));
 
     char medico[30];
 
