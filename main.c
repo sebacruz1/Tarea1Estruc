@@ -13,7 +13,8 @@ typedef struct
     int telefono;
     char direccion[30];
     char numeroSocial[30];
-    char* listaMedicos;
+    List* listaMedicos;
+    int contMedicos;
 }Datos;
 
 void registrarPaciente(List* lista)
@@ -318,7 +319,8 @@ void importarPacientes(List *lista)
 
     while (fgets(linea, 1023, fp) != NULL)
     {
-        for (int i = 0; i < 9; i++) 
+    	int i;
+        for ( i = 0; i < 9; i++) 
         {
         char *aux = get_csv_field(linea, i);
         switch (i) 
