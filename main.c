@@ -149,7 +149,9 @@ void mostrarTodosPacientes(List *lista)
         printf("Numero de seguro social: %s\n", aux->numeroSocial);
         printf("Medico asignado: %s\n", aux->listaMedicos);
         printf("\n");
+        
         sleep(1);
+        
         if (aux != lista->tail)
         {
             aux = nextList(lista);
@@ -191,8 +193,6 @@ void asignarMedico(List *lista)
             aux = nextList(lista);
         }
         
-        
-        
     }
 
     if (!encontrado)
@@ -206,11 +206,13 @@ void pacientesSinMedicos(List *lista)
 {
     bool hay = false;
     Datos* aux = firstList(lista);
+    
     while (aux != NULL)
     {
         if (strcmp(aux->listaMedicos, "") == 0)
         {
             hay = true;
+            
             printf("Nombre: %s\n", aux->nombre);
             printf("Apellido: %s\n", aux->apellido);
             printf("Edad: %d\n", aux->edad);
@@ -219,6 +221,7 @@ void pacientesSinMedicos(List *lista)
             printf("Numero de seguro social: %s\n", aux->numeroSocial);
             printf("Medico asignado: %s\n", aux->listaMedicos);
             printf("\n");
+            
             sleep(1);
         }
         if (aux != lista->tail)
@@ -248,6 +251,7 @@ void desasignarMedico(List *lista)
     scanf("%s", apellido);
 
     Datos* aux = firstList(lista);
+    
     bool encontrado = false;
     
     while (aux != NULL)
@@ -259,6 +263,7 @@ void desasignarMedico(List *lista)
             strcpy(aux->listaMedicos, "");
             printf("Medico desasignado\n");
             sleep(1);
+            
             break;
         }
 
@@ -271,6 +276,7 @@ void desasignarMedico(List *lista)
     if (!encontrado)
     {
         printf("No se encontro el paciente\n");
+        
         sleep(1);
     }
 }
