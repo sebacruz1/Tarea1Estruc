@@ -1,5 +1,12 @@
 # Tarea1Estruc
 
+Grupo :)
+Integrantes:
+      Sebastián Cruz Pomar
+      Joaquin Fuenzalida
+      Daniel Cepeda
+      Maximiliano Bustamante
+
 1. Para compilar necesitamos tener todos los archivos en la misma carpeta y ocupar gcc. Particularmente nosotros como grupo utilizamos gcc y la extension "code runner" de vscode, para asi ejecutar el programa de forma correcta.
    
 2. No logramos conseguir que funcionara la función para desasignar un doctor de un paciente. Esto debido a que almacenamos todos los doctores en una sola string, lo que no presentaba dificultades para desasignar en caso de que el paciente tuviera un solo doctor,  pero si dificulta mucho el eliminar un doctor si son más de uno. Especialmente si está en el “medio” de la string, ya que no logramos encontrar un método eficiente para poder identificar al doctor específico y ajustar la posición de los otros doctores en la string.
